@@ -25,6 +25,9 @@
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
         createChat({
     webhookUrl: 'https://9ab2fd2894bc.ngrok-free.app/webhook/05903637-f70b-45b0-86b3-e24c0f641cb3/chat',
+    headers: {
+    'ngrok-skip-browser-warning': 'true'
+  }
     webhookConfig: {
 		method: 'POST',
 		headers: {}
