@@ -9,8 +9,6 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; display: flex; flex-direction: column; align-items: center; }
         .container { width: 100%; max-width: 900px; margin: 20px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         h1 { color: #333; text-align: center; }
-        /* Chat widget için yer tutucu */
-        #n8n-chat { width: 100%; } 
         iframe { border: none; width: 100%; height: 600px; border-radius: 8px; }
         .info { margin-top: 15px; font-size: 0.9em; color: #666; text-align: center; }
     </style>
@@ -20,10 +18,8 @@
     <div class="container">
         <h1>📋 Yeni Görev Tanımlama</h1>
         <iframe src="https://9ab2fd2894bc.ngrok-free.app/form/f5886d15-e758-48f8-bc89-8cd109ea623a">Yükleniyor...</iframe>
-        <p class="info">Yukarıdaki form ile veri girişi yapabilir, sağ alttaki asistan ile verileri sorgulayabilirsiniz.</p>
+        <p class="info">Formu doldurunca veriler sisteme kaydedilir. Sorularınız için sağ alttaki ikona tıklayın.</p>
     </div>
-
-    <div id="n8n-chat"></div>
 
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
@@ -33,14 +29,11 @@
             webhookConfig: {
                 method: 'POST',
                 headers: {
-                    'ngrok-skip-browser-warning': 'true' // Ngrok uyarısını atlar
+                    'ngrok-skip-browser-warning': 'true'
                 }
             },
-            target: '#n8n-chat',
-            mode: 'window',
-            chatInputKey: 'chatInput',
-            chatSessionKey: 'sessionId',
-            loadPreviousSession: true,
+            // Mode 'window' yerine boş bırakıyoruz veya 'fullscreen' yapıyoruz. 
+            // Varsayılan olarak sağ altta bir buton (bubble) oluşturur.
             showWelcomeScreen: false,
             initialMessages: [
                 'Merhaba! 👋',
@@ -51,7 +44,6 @@
                     title: 'Asistan 👋',
                     subtitle: "Size nasıl yardımcı olabilirim?",
                     inputPlaceholder: 'Sorunuzu yazın...',
-                    getStarted: 'Yeni Sohbet'
                 },
             }
         });
