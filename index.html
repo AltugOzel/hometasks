@@ -83,13 +83,19 @@
 
             try {
                 // BURAYA n8n'de oluşturduğun yeni WEBHOOK URL'sini yapıştır
-                const response = await fetch('https://9e30a16aeda9.ngrok-free.app/webhook-test/yeni-gorev', {
+                const response = await fetch('https://9e30a16aeda9.ngrok-free.app/webhook/yeni-gorev', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'ngrok-skip-browser-warning': 'true'
                     },
-                    body: JSON.stringify({ task: taskValue })
+                    body: JSON.stringify({ 
+                        task: taskValue,
+                        tarih: tarihValue,
+                        kisi: kisiValue,
+                        yer: yerValue,
+                        eposta: epostaValue 
+                    })
                 });
 
                 if (response.ok) {
