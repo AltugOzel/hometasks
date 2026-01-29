@@ -7,8 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; display: flex; flex-direction: column; align-items: center; }
-        .container { width: 100%; max-width: 900px; margin-top: 50px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .container { width: 100%; max-width: 900px; margin: 20px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         h1 { color: #333; text-align: center; }
+        /* Chat widget için yer tutucu */
+        #n8n-chat { width: 100%; } 
         iframe { border: none; width: 100%; height: 600px; border-radius: 8px; }
         .info { margin-top: 15px; font-size: 0.9em; color: #666; text-align: center; }
     </style>
@@ -21,40 +23,38 @@
         <p class="info">Yukarıdaki form ile veri girişi yapabilir, sağ alttaki asistan ile verileri sorgulayabilirsiniz.</p>
     </div>
 
+    <div id="n8n-chat"></div>
+
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+        
         createChat({
-    webhookUrl: 'https://9ab2fd2894bc.ngrok-free.app/webhook/05903637-f70b-45b0-86b3-e24c0f641cb3/chat',
-    headers: {
-    'ngrok-skip-browser-warning': 'true'
-  }
-    webhookConfig: {
-		method: 'POST',
-		headers: {}
-	},
-	target: '#n8n-chat',
-	mode: 'window',
-	chatInputKey: 'chatInput',
-	chatSessionKey: 'sessionId',
-	loadPreviousSession: true,
-	metadata: {},
-	showWelcomeScreen: false,
-	defaultLanguage: 'en',
-	initialMessages: [
-		'Merhaba! 👋',
-		'Ben Ev icerisindeki Gorevleri organize eden ve size gerekli bilgiler veren bir asistanim. Ev icerisindeki gorevler ile ilgili istediginiz sorulari sorabilirsiniz'
-	],
-	i18n: {
-		en: {
-			title: 'Merhaba! 👋',
-			subtitle: "Herhangi bir soru sorabilirsin.",
-			footer: '',
-			getStarted: 'Yeni Sohbet',
-			inputPlaceholder: 'Sorunu Sor..',
-		},
-	},
-	enableStreaming: false,
-});
+            webhookUrl: 'https://9ab2fd2894bc.ngrok-free.app/webhook/05903637-f70b-45b0-86b3-e24c0f641cb3/chat',
+            webhookConfig: {
+                method: 'POST',
+                headers: {
+                    'ngrok-skip-browser-warning': 'true' // Ngrok uyarısını atlar
+                }
+            },
+            target: '#n8n-chat',
+            mode: 'window',
+            chatInputKey: 'chatInput',
+            chatSessionKey: 'sessionId',
+            loadPreviousSession: true,
+            showWelcomeScreen: false,
+            initialMessages: [
+                'Merhaba! 👋',
+                'Ben ev içi görev asistanıyım. Sorularınızı sorabilirsiniz.'
+            ],
+            i18n: {
+                en: {
+                    title: 'Asistan 👋',
+                    subtitle: "Size nasıl yardımcı olabilirim?",
+                    inputPlaceholder: 'Sorunuzu yazın...',
+                    getStarted: 'Yeni Sohbet'
+                },
+            }
+        });
     </script>
 </body>
 </html>
