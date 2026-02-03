@@ -10,8 +10,20 @@
         .resim { width: 95%; max-width: 300px; margin-top: 10px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); text-align: center; }
         .container { width: 95%; max-width: 600px; margin-top: 10px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); text-align: center; }
         h1 { color: #2c3e50; margin-bottom: 20px; font-size: 24px; }
-        .input-group { display: flex; flex-direction: column; gap: 15px; }
-        input { padding: 15px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; transition: border-color 0.3s; }
+        .input-group { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 15px; 
+        text-align: left; /* Etiketlerin sola yaslanması için */
+    }
+    label { 
+        font-weight: bold; 
+        color: #34495e; 
+        margin-bottom: -10px; 
+        font-size: 14px; 
+        margin-left: 5px;
+    }
+    input { padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; }
         input:focus { border-color: #ff6d5a; outline: none; }
         button { padding: 15px; background-color: #ff6d5a; color: white; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; font-weight: bold; transition: background 0.3s; }
         button:hover { background-color: #e85a49; }
@@ -27,16 +39,27 @@
     <div class="container">
         <h1>📋 Yeni Görev Tanımlama</h1>
         <div class="input-group">
-            Gorev <input type="text" id="taskInput" placeholder="Gorev...">
-            Baslangic Tarihi <input type="date" id="basTarihInput" placeholder="Baslangic Tarihi...">
-            Bitis Tarihi <input type="date" id="bitTarihInput" placeholder="Bitis Tarihi...">
-            Kisi <input type="text" id="kisiInput" placeholder="Kisi...">
-            Yer <input type="text" id="yerInput" placeholder="Yer...">
-            e-posta <input type="email" id="epostaInput" placeholder="e-posta...">
-            <button onclick="gorevKaydet()" id="submitBtn">Görevi Sisteme Kaydet</button>
-        </div>
-        <p id="statusMsg">✅ Görev başarıyla kaydedildi!</p>
-        <p class="info">Not: Form verileri doğrudan n8n üzerinden Sheets ve Pinecone'a iletilir.</p>
+            <label for="taskInput">Görev Açıklaması</label>
+        <input type="text" id="taskInput" placeholder="Örn: Mutfak temizliği">
+
+        <label for="basTarihInput">Başlangıç Tarihi</label>
+        <input type="date" id="basTarihInput">
+
+        <label for="bitTarihInput">Bitiş Tarihi</label>
+        <input type="date" id="bitTarihInput">
+
+        <label for="kisiInput">Sorumlu Kişi</label>
+        <input type="text" id="kisiInput" placeholder="İsim giriniz...">
+
+        <label for="yerInput">Yer / Mekan</label>
+        <input type="text" id="yerInput" placeholder="Örn: Ev, Ofis, Bahçe">
+
+        <label for="epostaInput">E-posta Adresi</label>
+        <input type="email" id="epostaInput" value="alpaltugozel@gmail.com" placeholder="ornek@mail.com">
+
+        <button onclick="gorevKaydet()" id="submitBtn">Görevi Sisteme Kaydet</button>
+    </div>
+    <p id="statusMsg">✅ Görev başarıyla kaydedildi!</p>
     </div>
 
     <script type="module">
@@ -67,6 +90,16 @@
     </script>
 
     <script>
+        // OTOMATİK TARİH AKTARMA: Başlangıç tarihi değişince bitişe kopyala
+    const basTarihInput = document.getElementById('basTarihInput');
+    const bitTarihInput = document.getElementById('bitTarihInput');
+
+    basTarihInput.addEventListener('change', function() {
+        // Eğer bitiş tarihi henüz seçilmemişse veya başlangıçtan önceyse otomatik güncelle
+        if (basTarihInput.value) {
+            bitTarihInput.value = basTarihInput.value;
+        }
+    });
         // Form verisini n8n Webhook düğümüne gönderen fonksiyon
         async function gorevKaydet() {
             const taskValue = document.getElementById('taskInput').value;
