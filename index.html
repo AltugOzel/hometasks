@@ -27,11 +27,12 @@
     <div class="container">
         <h1>📋 Yeni Görev Tanımlama</h1>
         <div class="input-group">
-            <input type="text" id="taskInput" placeholder="Gorev...">
-            <input type="date" id="tarihInput" placeholder="Tarih...">
-            <input type="text" id="kisiInput" placeholder="Kisi...">
-            <input type="text" id="yerInput" placeholder="Yer...">
-            <input type="email" id="epostaInput" placeholder="e-posta...">
+            Gorev <input type="text" id="taskInput" placeholder="Gorev...">
+            Baslangic Tarihi <input type="date" id="basTarihInput" placeholder="Baslangic Tarihi...">
+            Bitis Tarihi <input type="date" id="bitTarihInput" placeholder="Bitis Tarihi...">
+            Kisi <input type="text" id="kisiInput" placeholder="Kisi...">
+            Yer <input type="text" id="yerInput" placeholder="Yer...">
+            e-posta <input type="email" id="epostaInput" placeholder="e-posta...">
             <button onclick="gorevKaydet()" id="submitBtn">Görevi Sisteme Kaydet</button>
         </div>
         <p id="statusMsg">✅ Görev başarıyla kaydedildi!</p>
@@ -69,7 +70,8 @@
         // Form verisini n8n Webhook düğümüne gönderen fonksiyon
         async function gorevKaydet() {
             const taskValue = document.getElementById('taskInput').value;
-            const tarihValue = document.getElementById('tarihInput').value;
+            const basTarihValue = document.getElementById('basTarihInput').value;
+            const bitTarihValue = document.getElementById('bitTarihInput').value;
             const kisiValue = document.getElementById('kisiInput').value;
             const yerValue = document.getElementById('yerInput').value;
             const epostaValue = document.getElementById('epostaInput').value;
@@ -94,7 +96,8 @@
                     },
                     body: JSON.stringify({ 
                         task: taskValue,
-                        tarih: tarihValue,
+                        basTarih: basTarihValue,
+                        bitTarih: bitTarihValue,
                         kisi: kisiValue,
                         yer: yerValue,
                         eposta: epostaValue 
